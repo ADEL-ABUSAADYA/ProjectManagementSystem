@@ -6,20 +6,13 @@ namespace ProjectManagementSystem.Data;
 public class Context : DbContext
 {
     // Users Management
-
-    public DbSet<Group> Groups { get; set; }
-    public DbSet<Instructor> Instructors { get; set; }
-    public DbSet<Student> Students { get; set; }
-    public DbSet<Course> Courses { get; set; }
-    public DbSet<Exam> Exams { get; set; }
-    public DbSet<Question> Questions { get; set; }
-    public DbSet<Answer> Answers { get; set; }
-    
-    public DbSet<InstructorCourse> InstructorsCourse { get; set;}
-    public DbSet<StudentCourse> StudentsCourses { get; set; }
-    public DbSet<StudentExam> StudentExams { get; set; }
-    public DbSet<ExamQuestion> ExamQuestions { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<SprintItem> SprintItems { get; set; }
+    public DbSet<Role> Roles { get; set; }
+    public DbSet<Project> Projects { get; set; }
+    
+    
+    public DbSet<UserSprintItem> UserSprintItems { get; set; }
     public DbSet<UserFeature> UserFeatures { get; set; }
 
 

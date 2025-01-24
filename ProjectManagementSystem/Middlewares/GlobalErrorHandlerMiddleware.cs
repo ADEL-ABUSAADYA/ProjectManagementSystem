@@ -26,6 +26,6 @@ public class GlobalErrorHandlerMiddleware
             context.Response.WriteAsJsonAsync(response);
         }
 
-        //return Task.CompletedTask;
+        //return SprintItem.CompletedTask;
     }
 }
