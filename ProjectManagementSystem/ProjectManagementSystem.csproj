@@ -34,7 +34,6 @@
     <ItemGroup>
       <Folder Include="Features\Common\Users\Queries\" />
       <Folder Include="Features\UserManagement\LogInUser\Commands\" />
-      <Folder Include="Features\UserManagement\LogInUser\Queries\" />
     </ItemGroup>
 
 </Project>

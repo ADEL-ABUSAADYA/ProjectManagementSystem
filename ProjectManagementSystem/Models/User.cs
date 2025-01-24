@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace ProjectManagementSystem.Models;
 
 public class User : BaseModel
@@ -7,6 +9,7 @@ public class User : BaseModel
     public string Name { get; set; }
     public string PhoneNo { get; set; }
     public string Country { get; set; }
+    public bool IsActive { get; set; } = true;
     
     public bool TwoFactorAuthEnabled { get; set; }
     public string TwoFactorAuthsecretKey { get; set; }
@@ -15,6 +18,10 @@ public class User : BaseModel
     public Role Role { get; set; }
     
     public ICollection<UserFeature> UserFeatures { get; set; }
-    public ICollection<Project> Projects { get; set; }
     public ICollection<UserSprintItem> UserSprintItems { get; set; }
+    
+    [InverseProperty("Creator")]
+    public ICollection<Project> CreatedProjects { get; set; } = new List<Project>();
+    [InverseProperty("Assignee")]
+    public ICollection<Project> AssignedProjects { get; set; } = new List<Project>();
 }

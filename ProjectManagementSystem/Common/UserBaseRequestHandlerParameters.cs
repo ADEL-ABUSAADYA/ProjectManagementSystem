@@ -4,20 +4,17 @@ using ProjectManagementSystem.Data.Repositories;
 using ProjectManagementSystem.Models;
 
 namespace ProjectManagementSystem.Common;
-public class BaseRequestHandlerParameters
+public class UserBaseRequestHandlerParameters
 {
     readonly IMediator _mediator;
-    readonly IRepository<BaseModel> _repository;
     readonly IUserRepository _userRepository;
 
     public IMediator Mediator => _mediator;
-    public IRepository<BaseModel> Repository => _repository;
     public IUserRepository UserRepository => _userRepository;
     
-    public BaseRequestHandlerParameters(IMediator mediator, IRepository<BaseModel> repository, IUserRepository userRepository)
+    public UserBaseRequestHandlerParameters(IMediator mediator, IUserRepository userRepository)
     {
         _mediator = mediator;
-        _repository = repository;
         _userRepository = userRepository;
     }
     

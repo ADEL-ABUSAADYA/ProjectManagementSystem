@@ -9,4 +9,5 @@ public enum ErrorCode
     InvalidInput,
     ItemAlreadyExists,
     UserNotFound,
+    UserAlreadyExist,
 }
