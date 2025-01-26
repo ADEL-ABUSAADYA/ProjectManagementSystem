@@ -19,9 +19,6 @@ public class User : BaseModel
     
     public ICollection<UserFeature> UserFeatures { get; set; }
     public ICollection<UserSprintItem> UserSprintItems { get; set; }
-    
-    [InverseProperty("Creator")]
-    public ICollection<Project> CreatedProjects { get; set; } = new List<Project>();
-    [InverseProperty("Assignee")]
-    public ICollection<Project> AssignedProjects { get; set; } = new List<Project>();
+    public ICollection<Project> CreatedProjects { get; set; }
+    public ICollection<UserAssignedProject> UserAssignedProjects { get; set; } = new List<UserAssignedProject>();
 }

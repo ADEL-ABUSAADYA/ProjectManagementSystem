@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using ProjectManagementSystem.Common;
 using ProjectManagementSystem.Common.Data.Enums;
 using ProjectManagementSystem.Common.Views;
@@ -21,16 +22,22 @@ public class RegisterUserCommandHandler : BaseRequestHandler<RegisterUserCommand
         if (reponse.isSuccess)
             return RequestResult<bool>.Failure(ErrorCode.UserAlreadyExist);
         
+        PasswordHasher<string> passwordHasher = null;
+        var password = passwordHasher.HashPassword(null, request.password);
+        
         var userID = await _repository.AddAsync(new User
         { 
           Email=request.email,
-          Password=request.password,
+          Password = password,
           Name = request.name,
           PhoneNo= request.phoneNo,
           Country= request.country,
           IsActive = true
         });
         await _repository.SaveChangesAsync();
+        
+        if (userID < 0)
+        return RequestResult<bool>.Failure(ErrorCode.UnKnownError);
 
         return RequestResult<bool>.Success(true);
     }

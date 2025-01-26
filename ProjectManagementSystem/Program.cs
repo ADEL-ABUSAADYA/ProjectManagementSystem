@@ -8,10 +8,16 @@
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.IdentityModel.Tokens;
+    using ProjectManagementSystem.Data;
     using ProjectManagementSystem.Middlewares;
 
     var builder = WebApplication.CreateBuilder(args);
-
+    
+    var configuration = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json")
+        .Build();
+    builder.Services.AddDbContext<Context>(options =>
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
     builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
     builder.Host.ConfigureContainer<ContainerBuilder>(
@@ -19,6 +25,8 @@
         {
             container.RegisterModule<AutoFacModule>();
         });
+    
+    
 
     builder.Services.AddHttpContextAccessor();
     builder.Services.AddControllers();
@@ -50,25 +58,23 @@
             ValidateLifetime = true,
         };
     });
-    var configuration = new ConfigurationBuilder()
-        .AddJsonFile("appsettings.json")
-        .Build();
+    
 
     builder.Services.AddAuthorization();
 
-    builder.Services.AddCap(cfg =>
-    {
-        cfg.UseSqlServer(configuration.GetConnectionString("Default"));
-        cfg.UseEntityFramework<DbContext>();
-        cfg.UseRabbitMQ(opt =>
-        {
-            opt.HostName = "localhost";
-            opt.Port = 15672;
-            opt.UserName = "guest";
-            opt.Password = "guest";
-            opt.ExchangeName = "cap.default.router";
-        });
-    });
+    // builder.Services.AddCap(cfg =>
+    // {
+    //     cfg.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+    //     cfg.UseEntityFramework<Context>();
+    //     cfg.UseRabbitMQ(opt =>
+    //     {
+    //         opt.HostName = "localhost";
+    //         opt.Port = 15672;
+    //         opt.UserName = "guest";
+    //         opt.Password = "guest";
+    //         opt.ExchangeName = "cap.default.router";
+    //     });
+    // });
 
     var app = builder.Build();
 
